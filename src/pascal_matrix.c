@@ -20,15 +20,15 @@ int main(void) {
     int count = 0;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            matrix[i][j] = 0;
+            // matrix[i][j] = 0;
             matrix[i][j] = arr[count];
-            printf("%d ", matrix[i][j]);
-               if (j != n - 1) {
+            printf("%d", matrix[i][j]);
+            if (j < n - 1) {
                 printf(" ");
             }
             count++;
         }
-                if (i != n - 1) {
+        if (i != n - 1) {
             printf("\n");
         }
     }
@@ -74,16 +74,15 @@ int input(int* n) {
 // }
 
 int* get_pyramid(int n) {
-    int size = n * n + n;
+    int size = n * n;
     int* arr = malloc(sizeof(int) * size);
     int count = 0;
     int i = 0;
-    while (i <= n + 1) {
+    while (count < size) {
         for (int j = 0; j <= i; j++) {
             arr[count] = round(get_factorial(i) / round((get_factorial(j) * get_factorial(i - j))));
             // printf("%d ", arr[count]);
             count++;
-            if (count == size) break;
         }
         i++;
     }

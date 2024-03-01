@@ -14,7 +14,7 @@ clean:
 check:
 	clang-format -n *.c
 	cppcheck --enable=all --suppress=missingIncludeSystem *.c 
-	valgrind --tool=memcheck --leak-check=yes --track-origins=yes ../bin/pascal_matrix
+	valgrind --tool=memcheck --leak-check=yes --track-origins=yes -s ../bin/pascal_matrix
 
 # test:
 # 	pytest --color=yes -v --tb=short tests
