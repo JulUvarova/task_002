@@ -4,9 +4,10 @@
 #define NMAX 10
 
 int input(int* n);
-void output(int matrix[NMAX][NMAX], int n);
+void output(int** matrix, int n);
 double get_factorial(int x);
 int* get_pyramid(int n);
+int** get_matrix(int n, const int* arr);
 
 int main(void) {
     int n = 0;
@@ -14,8 +15,21 @@ int main(void) {
         fprintf(stderr, "%s", "Puck you, Verter!");
         return 1;
     }
+    int* arr = get_pyramid(n);
+    int** matrix = get_matrix(n, arr);
+    output(matrix, n);
+    free(arr);
+    for (int i = 0; i < n; i++) {
+        free(matrix[i]);
+        ;
+    }
+    free(matrix);
+    return 0;
+}
+
+int* get_pyramid(int n) {
     int size = n * n;
-    int arr[size];
+    int* arr = malloc(sizeof(int) * size);
     int count = 0;
     int N = 0;
     while (1) {
@@ -27,16 +41,22 @@ int main(void) {
         N++;
         if (count == size) break;
     }
-    int matrix[NMAX][NMAX];
-    count = 0;
+    return arr;
+}
+
+int** get_matrix(int n, const int* arr) {
+    int** matrix = malloc(sizeof(int*) * n);
+    for (int i = 0; i < n; i++) {
+        matrix[i] = malloc(sizeof(int) * n);
+    }
+    int count = 0;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             matrix[i][j] = arr[count];
             count++;
         }
     }
-    output(matrix, n);
-    return 0;
+    return matrix;
 }
 
 int input(int* n) {
@@ -45,7 +65,7 @@ int input(int* n) {
     return exit;
 }
 
-void output(int matrix[NMAX][NMAX], int n) {
+void output(int** matrix, int n) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             printf("%d", matrix[i][j]);
